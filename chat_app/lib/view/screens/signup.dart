@@ -27,7 +27,7 @@ class _Signup_ScreenState extends State<Signup_Screen> {
                     height: MediaQuery.of(context).size.height * 0.06,
                   ),
                   const Text(
-                    'Chatt App',
+                    'Chat App',
                     style: TextStyle(
                       fontFamily: 'Kalam',
                       fontWeight: FontWeight.bold,
