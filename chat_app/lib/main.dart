@@ -1,3 +1,4 @@
+import 'package:chat_app/view/screens/signup.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Signup_Screen(),
     );
   }
 }
@@ -95,13 +96,12 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-              style:TextStyle(fontFamily: 'Kalam',fontWeight: FontWeight.bold)
-            ),
+            const Text('You have pushed the button this many times:',
+                style: TextStyle(
+                    fontFamily: 'Kalam', fontWeight: FontWeight.bold)),
             Text(
               '$_counter',
-              style:TextStyle(fontFamily: 'Kalam'),
+              style: TextStyle(fontFamily: 'Kalam'),
             ),
           ],
         ),
