@@ -14,6 +14,7 @@ class Signup_Gender_Box extends StatelessWidget {
       child: Icon(
         icon,
         size: 70,
+        color: color,
       ),
       decoration: BoxDecoration(
           border: Border.all(width: 2, color: color),

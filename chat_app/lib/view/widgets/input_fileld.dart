@@ -1,44 +1,74 @@
 import 'package:flutter/material.dart';
 
-class Input_Field extends StatelessWidget {
+class Input_Field extends StatefulWidget {
   String text;
   String? ctext;
   IconData? icon;
-  bool? obs;
   TextInputType? type;
+  TextEditingController controller;
 
   Input_Field(
-    this.text, {
+    this.text,
+    this.controller, {
     this.icon,
     this.type,
     this.ctext,
-    this.obs
   });
 
   @override
+  State<Input_Field> createState() => _Input_FieldState();
+}
+
+bool obs = false;
+
+class _Input_FieldState extends State<Input_Field> {
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       validator: (value) {
         if (value!.isEmpty)
-          return '$text required';
-        else if (text == 'Email' && !value.contains('@'))
-          return 'Enter a valid email';
-        else if (text == 'Password' && value.length < 7)
+          return '${widget.text} required';
+        else if (widget.text == 'Email' && !value.contains('@gmail.com'))
+          return 'invalid email "Example@gmail.com"';
+        else if (widget.text == 'Password' && value.length < 7)
           return 'Password must be at least 7 characters';
-        else if (text == 'Confirm Password' && value != ctext)
+        else if (widget.text == 'Confirm Password' && value.compareTo(widget.ctext.toString()) != 0) {
+           print(value);
+           print(widget.ctext);
           return 'Password didn\'t match';
-        else
+        } else
           return null;
       },
-      onSaved: (value) {},
-      keyboardType: type,
-      obscureText: obs??false,
+      onSaved: (value) {
+        widget.controller.text = value.toString();
+      },
+      keyboardType: widget.type,
+      obscureText:
+          widget.text == 'Password' || widget.text == 'Confirm Password'
+              ? obs
+              : false,
       decoration: InputDecoration(
-        suffixIcon: Icon(
-          icon,
-          color: Colors.black54,
+        suffixIcon: GestureDetector(
+          onTap: () {
+            if (widget.icon != null) {
+              setState(() {
+                obs = !obs;
+                widget.icon = obs ? Icons.visibility_off : Icons.visibility;
+              });
+              print(obs);
+            }
+          },
+          child: Icon(
+            widget.icon != null
+                ? obs
+                    ? Icons.visibility_off
+                    : Icons.visibility
+                : null,
+            color: Colors.black54,
+          ),
         ),
-        label: Text(text),
+        label: Text(widget.text),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(width: 2, color: Colors.black),
           borderRadius: BorderRadius.circular(8),
@@ -48,11 +78,11 @@ class Input_Field extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         errorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red, width: 2.0),
-        ),
+            borderSide: BorderSide(color: Colors.red, width: 2.0),
+            borderRadius: BorderRadius.all(Radius.circular(8))),
         focusedErrorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red, width: 2.0),
-        ),
+            borderSide: BorderSide(color: Colors.red, width: 2.0),
+            borderRadius: BorderRadius.all(Radius.circular(8))),
       ),
     );
   }
