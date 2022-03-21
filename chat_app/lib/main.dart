@@ -1,8 +1,15 @@
+import 'package:chat_app/controller/auth.dart';
 import 'package:chat_app/view/screens/signup.dart';
-import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(ChangeNotifierProvider(create: (_) => Auth(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,18 +21,39 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+      themeMode: ThemeMode.dark,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
+          primaryColor: Colors.black,
+          primarySwatch: Colors.blue,
+          brightness: Brightness.light,
+          textTheme: const TextTheme(
+              headline6: TextStyle(
+                  color: Colors.blue,
+                  fontFamily: 'Kalam',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30),
+              headline5: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'Kalam',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25),
+              headline4: TextStyle(color: Colors.black54, fontSize: 17))),
+      darkTheme: ThemeData(
+          primaryColor: Colors.grey,
+          primarySwatch: Colors.blue,
+          brightness: Brightness.dark,
+          textTheme: const TextTheme(
+              headline6: TextStyle(
+                  color: Colors.blue,
+                  fontFamily: 'Kalam',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30),
+              headline5: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Kalam',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25),
+              headline4: TextStyle(color: Colors.grey, fontSize: 17))),
       home: Signup_Screen(),
     );
   }

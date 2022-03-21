@@ -33,9 +33,10 @@ class _Input_FieldState extends State<Input_Field> {
           return 'invalid email "Example@gmail.com"';
         else if (widget.text == 'Password' && value.length < 7)
           return 'Password must be at least 7 characters';
-        else if (widget.text == 'Confirm Password' && value.compareTo(widget.ctext.toString()) != 0) {
-           print(value);
-           print(widget.ctext);
+        else if (widget.text == 'Confirm Password' &&
+            value.compareTo(widget.ctext.toString()) != 0) {
+          print(value);
+          print(widget.ctext);
           return 'Password didn\'t match';
         } else
           return null;
@@ -65,16 +66,17 @@ class _Input_FieldState extends State<Input_Field> {
                     ? Icons.visibility_off
                     : Icons.visibility
                 : null,
-            color: Colors.black54,
+            color: Colors.grey,
           ),
         ),
         label: Text(widget.text),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(width: 2, color: Colors.black),
+          borderSide:
+              BorderSide(width: 2, color: Theme.of(context).primaryColor),
           borderRadius: BorderRadius.circular(8),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(width: 2, color: Colors.black),
+          borderSide:  BorderSide(width: 2, color: Theme.of(context).primaryColor),
           borderRadius: BorderRadius.circular(8),
         ),
         errorBorder: const OutlineInputBorder(
